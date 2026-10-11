@@ -1,0 +1,5 @@
+# Preserve pinned upstream license and attribution bytes.
+third_party/** -whitespace
+sdk/src/main/assets/fonts/gulim/OFL.txt -whitespace
+
+runtime-assets/third_party/** -whitespace

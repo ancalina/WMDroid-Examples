@@ -1,0 +1,7 @@
+<resources>
+ <string name="app_name">WMDroid 위젯</string>
+ <string name="widget_weather">날씨</string>
+ <string name="widget_transit">버스·지하철</string>
+ <string name="widget_splatnet">스플래툰 3 스테이지</string>
+ <string name="widget_battery">배터리</string>
+</resources>

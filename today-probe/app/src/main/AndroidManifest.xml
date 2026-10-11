@@ -1,0 +1,16 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+ <queries><package android:name="me.ancal.wmdroid" /><provider android:authorities="me.ancal.wmdroid.shell" /></queries>
+ <application android:name="androidx.multidex.MultiDexApplication" android:label="Today SDK Probe" android:theme="@style/ProbeTheme" android:allowBackup="false">
+  <provider android:name=".ProbeProvider$Counter" android:authorities="org.example.todayprobe.counter" android:exported="true" android:label="Probe counter">
+   <intent-filter><action android:name="me.ancal.wmdroid.sdk.TODAY_MODULE" /></intent-filter>
+   <meta-data android:name="me.ancal.wmdroid.sdk.VERSION" android:value="1" />
+  </provider>
+  <provider android:name=".ProbeProvider$Status" android:authorities="org.example.todayprobe.status" android:exported="true" android:label="Probe status">
+   <intent-filter><action android:name="me.ancal.wmdroid.sdk.TODAY_MODULE" /></intent-filter>
+   <meta-data android:name="me.ancal.wmdroid.sdk.VERSION" android:value="1" />
+  </provider>
+  <activity android:name=".ProbeActivity" android:exported="true" android:screenOrientation="portrait">
+   <intent-filter><action android:name="android.intent.action.MAIN" /><category android:name="android.intent.category.LAUNCHER" /></intent-filter>
+  </activity>
+ </application>
+</manifest>

@@ -1,0 +1,7 @@
+<resources>
+ <string name="app_name">WMDroid Widgets</string>
+ <string name="widget_weather">Weather</string>
+ <string name="widget_transit">Bus / subway</string>
+ <string name="widget_splatnet">Splatoon 3 stages</string>
+ <string name="widget_battery">Battery</string>
+</resources>
