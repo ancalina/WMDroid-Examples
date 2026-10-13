@@ -5,10 +5,14 @@
  <uses-permission android:name="android.permission.READ_PHONE_STATE" />
  <queries><package android:name="me.ancal.wmdroid" /><provider android:authorities="me.ancal.wmdroid.shell" /></queries>
  <application android:name="androidx.multidex.MultiDexApplication" android:label="WMDroid SDK sample" android:theme="@style/WmAppletTheme" android:allowBackup="false">
+  <provider android:name=".SampleAudioProvider" android:authorities="me.ancal.wmdroid.sample.media" android:exported="false" />
   <provider android:name=".SampleProvider" android:authorities="me.ancal.wmdroid.sample.today" android:exported="true" android:label="WMDroid SDK sample">
    <intent-filter><action android:name="me.ancal.wmdroid.sdk.TODAY_MODULE" /></intent-filter>
    <meta-data android:name="me.ancal.wmdroid.sdk.VERSION" android:value="1" />
   </provider>
+  <activity android:name=".GalleryActivity" android:exported="true">
+   <meta-data android:name="me.ancal.wmdroid.sdk.WM_STYLE" android:value="true" />
+  </activity>
   <activity android:name=".SampleActivity" android:exported="true">
    <meta-data android:name="me.ancal.wmdroid.sdk.WM_STYLE" android:value="true" />
    <intent-filter><action android:name="android.intent.action.MAIN" /><category android:name="android.intent.category.LAUNCHER" /></intent-filter>

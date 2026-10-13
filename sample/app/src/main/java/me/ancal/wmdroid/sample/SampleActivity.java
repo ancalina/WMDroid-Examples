@@ -4,7 +4,7 @@ import android.view.Gravity;
 import android.widget.*;
 import me.ancal.wmdroid.sdk.*;
 public final class SampleActivity extends WmApplet {
-    private TextView counter,increment,info,popupExample,calendarExample,agendaExample,yearExample,appointmentExample,recurrenceExample,phoneExample,contactsExample,notesExample,settingsExample;private WmPropertySheet sheet;private String language="ko";private int selected;
+    private TextView counter,increment,info,popupExample,calendarExample,agendaExample,yearExample,appointmentExample,recurrenceExample,phoneExample,contactsExample,notesExample,settingsExample,laboratory;private WmPropertySheet sheet;private String language="ko";private int selected;
     private PhoneDemo phoneDemo;
     private AppointmentDemo appointmentDemo;
     private ContactsDemo contactsDemo;
@@ -32,6 +32,7 @@ public final class SampleActivity extends WmApplet {
         contactsExample=entry(text("연락처 예제"),this::contactsExample);page[0].addView(contactsExample,new LinearLayout.LayoutParams(-1,44));
         notesExample=entry(text("메모 예제"),this::notesExample);page[0].addView(notesExample,new LinearLayout.LayoutParams(-1,44));
         settingsExample=entry(text("설정 그리드 예제"),this::settingsExample);page[0].addView(settingsExample,new LinearLayout.LayoutParams(-1,44));
+        laboratory=entry("ko".equals(language)?"UI 실험실":"UI laboratory",this::laboratory);page[0].addView(laboratory,0,new LinearLayout.LayoutParams(-1,44));
         WmScrollView examples=new WmScrollView(this,page[0],LinearLayout.LayoutParams.WRAP_CONTENT,shade(0xffc9e7e9));
         page[0]=new LinearLayout(this);page[0].setOrientation(LinearLayout.VERTICAL);page[0].addView(examples,new LinearLayout.LayoutParams(-1,0,1));
         info=label(infoText());
@@ -40,6 +41,7 @@ public final class SampleActivity extends WmApplet {
         sheet.setOnPageChangedListener(index->selected=index);content.addView(sheet,new LinearLayout.LayoutParams(-1,0,1));
         commands();closeButton(false,null);
         select(saved==null?0:saved.getInt("tab",0));update();
+        if(saved==null){String example=getIntent().getStringExtra("example");if(example!=null)switch(example){case "week":calendarExample();break;case "agenda":agendaExample();break;case "year":yearExample();break;case "appointment":appointmentExample();break;case "recurrence":recurrenceExample();break;case "phone":phoneExample();break;case "contacts":contactsExample();break;case "notes":notesExample();break;case "settings":settingsExample();break;case "pwi":pwiExample();break;}}
         if(saved!=null&&saved.getBoolean("contacts",false)){contactsExample();contactsDemo.list.setQuery(saved.getString("contacts_query",""));if(saved.getBoolean("contact_summary",false)){contactsDemo.openSummary();contactsDemo.summary.setTab(saved.getInt("contact_tab",0));}contactsDemo.restoreDetails(saved);}
         if(saved!=null&&saved.getString("pwi")!=null){openPwi(saved.getString("pwi"));if(pwiDemo!=null)pwiDemo.scroll.scrollToPosition(saved.getInt("pwi_scroll",0));}
         if(saved!=null&&saved.getBoolean("phone",false)){phoneExample();phoneDemo.phone.setNumber(saved.getString("phone_number",""));phoneDemo.phone.setKeypadVisible(saved.getBoolean("phone_keypad",true));phoneCommands();}
@@ -51,7 +53,7 @@ public final class SampleActivity extends WmApplet {
     @Override protected void onShellStateChanged(WmShell.State state){
         if(counter==null)return;boolean languageChanged=!language.equals(state.language);language=state.language;
         caption(appointmentDemo!=null?appointmentCaption():settingsDemo!=null?text("설정 그리드 예제"):notesDemo!=null?text("메모 예제"):pwiDemo!=null?text("PWI 읽기 예제"):phoneDemo!=null?text("전화 예제"):contactsDemo!=null?text("연락처 예제"):text("WMDroid SDK 샘플"));increment.setText(text("카운터 증가"));info.setText(infoText());popupExample.setText(text("팝업 예제"));calendarExample.setText(text("주 보기 예제"));agendaExample.setText(text("일정 보기 예제"));yearExample.setText(text("연도 보기 예제"));appointmentExample.setText(text("약속 편집 예제"));phoneExample.setText(text("전화 예제"));
-        notesExample.setText(text("메모 예제"));settingsExample.setText(text("설정 그리드 예제"));
+        notesExample.setText(text("메모 예제"));settingsExample.setText(text("설정 그리드 예제"));laboratory.setText("ko".equals(language)?"UI 실험실":"UI laboratory");
         contactsExample.setText(text("연락처 예제"));if(contactsDemo!=null)contactsDemo.localize();
         recurrenceExample.setText(text("되풀이 편집 예제"));sheet.setPageTitle(0,text("카운터"));sheet.setPageTitle(1,text("정보","sample.info"));
         if(phoneDemo!=null)phoneDemo.phone.setStatus(text("발신하지 않는 예제"));
@@ -61,13 +63,14 @@ public final class SampleActivity extends WmApplet {
     private String text(String authored){return WmStrings.text(this,language,authored);}
     private String text(String authored,String key){return WmStrings.text(this,language,authored,key);}
     private WmPopup examplePopup(String caption,android.view.View body,int width,int anchor){samplePopup=showPopup(caption,body,width,anchor);return samplePopup;}
+    private void laboratory(){startActivity(new android.content.Intent(this,GalleryActivity.class).putExtra(WmApplet.LANGUAGE,language));overridePendingTransition(0,0);}
     private void commands(){
         softKeys("+1",this::increment,text("메뉴"),null);
         softKeyMenu(true,text("메뉴"),()->showCommandMenu(true,new WmMenuItem[]{
             WmMenuItem.submenu(text("보기"),WmMenuItem.checked(10,text("카운터"),selected==0),WmMenuItem.checked(11,text("정보","sample.info"),selected==1)),
             WmMenuItem.command(12,text("전화 예제")),WmMenuItem.command(13,text("연락처 예제")),WmMenuItem.command(14,text("PWI 읽기 예제")),WmMenuItem.command(15,text("메모 예제")),WmMenuItem.command(16,text("설정 그리드 예제")),
-            WmMenuItem.separator(),WmMenuItem.command(20,text("닫기"))
-        },id->{if(id==10||id==11)select(id-10);else if(id==12)phoneExample();else if(id==13)contactsExample();else if(id==14)pwiExample();else if(id==15)notesExample();else if(id==16)settingsExample();else if(id==20)finish();}));
+            WmMenuItem.command(17,"ko".equals(language)?"UI 실험실":"UI laboratory"),WmMenuItem.separator(),WmMenuItem.command(20,text("닫기"))
+        },id->{if(id==10||id==11)select(id-10);else if(id==12)phoneExample();else if(id==13)contactsExample();else if(id==14)pwiExample();else if(id==15)notesExample();else if(id==16)settingsExample();else if(id==17)laboratory();else if(id==20)finish();}));
     }
     private void settingsExample(){
         if(settingsDemo!=null)return;SettingsDemo next=new SettingsDemo(this,regular,shade(0xff149ca7),shade(0xffc9e7e9),language,this::closeSettings);

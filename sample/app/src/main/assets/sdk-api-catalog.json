@@ -1,0 +1,442 @@
+[
+  {
+    "name": "TodayContract",
+    "description": "Read-only Today protocol. Host owns chrome; optional standard RemoteViews supply content."
+  },
+  {
+    "name": "TodayProvider",
+    "description": "Export this provider with the discovery action and VERSION metadata=1.\nPublic rows only: callers other than the launcher may query an exported provider.\nNo module view code executes in the host: custom content uses standard RemoteViews layouts.\nRow actions must name an exported activity in your package."
+  },
+  {
+    "name": "WmAgendaView",
+    "description": "Shared single-day native Agenda presentation, in logical VGA pixels.\ncaldll 029144F8 supplies the two text lines; 029143F8/0291BE38 font spacing;\n0292085C/0292011C the read-only DAYVIEWSTRIP. No PIM queries or exported tags.\nList font roles51/52/57 and the strip's stock-derived seven-point font\n(SHCreateSystemFont(0,7,0):7 is point size, not a role) currently share the\nsupplied regular Android face: list24px, seven-point strip19px at logical192 DPI; final native GDI metrics/face are unverified.\nAndroid font\nextents and all-day padding/border are adaptations. Native strip phase and\ndiscrete easing arithmetic are retained; Android dispatch cadence is not\nmeasured WM hardware cadence. The optional native date footer is absent."
+  },
+  {
+    "name": "WmAppIcons",
+    "description": "Renders launcher icons at physical pixel resolution without changing their bounds."
+  },
+  {
+    "name": "WmApplet",
+    "description": "Independent WM-style activity using the same window and controls as the host."
+  },
+  {
+    "name": "WmAppointmentEditor",
+    "description": "Shared core of the native two-page appointment card (PIMDLG 20006/20044).\nSubject/location, grouped start/end and yes/no all-day follow the recovered\nfield descriptors. Row/label/popup extents are provisional VGA adaptations.\nRecurrence, native busy status, sensitivity and caller-owned category values\nare shared; attendees remain unfinished. Caller must validate provider capabilities.\nCaller owns provider identity, saving, reminder policy and shell commands.\nEditor dates use the shared picker range 1900..2999; value() rejects values\noutside it, including values set directly through the exposed fields."
+  },
+  {
+    "name": "WmAppointmentReminder",
+    "description": "Native appointment25059 relative reminder composite. Owner supplies popups.\nEnabled line remains; disabled hides the numeric/unit line. Closed height\nfollows shared combo font metrics; width split remains provisional VGA geometry. No task absolute date/time reminder."
+  },
+  {
+    "name": "WmAppointmentText",
+    "description": "Appointment text at the native save boundary; editing retains the raw draft."
+  },
+  {
+    "name": "WmAssets",
+    "description": "Cataloged artwork and media, available without a launcher process or provider.\nOptional catalogs are streamed once per app/pack generation, then kept immutable.\nMissing catalogs yield an empty inventory. Catalogs are bounded4MiB/8192 entries; previews8MiB/4MP.\nNative dimensions, names and IDs are preserved; requestedPixels only reduces\nthe decoded preview. AVI/WAVE and original GIF/JPEG/CUR bytes use open()."
+  },
+  {
+    "name": "WmBar",
+    "description": "Original 73-color table, title 1FBC4 and softkey 38815D4 region descriptors.\nGDI GradientFill endpoint quantization still needs a WinCE runtime comparison."
+  },
+  {
+    "name": "WmBoxSelect",
+    "description": "Native BOXSELECT family: short horizontal exclusive/multiple text cells.\nBlack selected fill and white text follow commctrl paint; 48px cells and\nborder geometry are provisional logical VGA extents, not measured DLU.\nExclusive selection can be cleared by selecting the selected cell (style10).\nLabels and bit ordering are caller-owned; setters never notify."
+  },
+  {
+    "name": "WmBrowserFavoriteForm",
+    "description": "browsres dialog4167 field IDs/order, shared controls and literal drafts.\nOwner supplies real destinations, the location popup, validation, persistence\nand Add/Cancel commands. Field geometry matches the official 480x640 WM6.1 emulator capture.\nDestination ordering and owner dialog/button placement remain separate contracts."
+  },
+  {
+    "name": "WmBrowserFavoritesView",
+    "description": "WM6.1.4 Favorites:34px rows, tap selection, Open softkey and double tap.\nOwner supplies entries, folder navigation, commands and persistence."
+  },
+  {
+    "name": "WmBrowserFolderForm",
+    "description": "browsres4168 name12339/label12356; field rectangle measured in WM6.1.4."
+  },
+  {
+    "name": "WmBrowserView",
+    "description": "Hosted browser client; the owner supplies title, softkeys, menus and lifecycle.\nNative IE command IDs come from browsres4096. Web rendering is Android WebView,\nnot Trident. Address-row geometry and web scrollbars remain provisional."
+  },
+  {
+    "name": "WmBubble",
+    "description": "SHPaintBubbleFrame 3856130: white window brush, round corners and asymmetric tail.\nVGA corner diameter 36, tail base 52, pen 4. Header SHColor IDs13/14 are\ndistinct from the LauncherBar style table. Captured GDI body top is25px below tip."
+  },
+  {
+    "name": "WmCalendarAppointmentsOptions",
+    "description": "Calendar property page20005. Native IDs, quantity0..99, unit multipliers\nand six display bits are preserved. The native7/14 DLU profile supplies the\ndefault coordinates and42px icon cells; narrow widths and large font metrics\nexpand rows. Caller owns persistence, mail accounts and reminder scheduling.\nThis view never accesses CalendarProvider or sends meeting requests."
+  },
+  {
+    "name": "WmCalendarDuration",
+    "description": "CalendarProvider fixed elapsed duration adaptation, not nominal civil-day\narithmetic across DST. RFC5545 week/day/time forms are supported. The legacy\nAndroid provider form P<n>S is read only; canonical output uses PT<n>S.\nNegative/fractional/overflow durations are rejected, not silently truncated."
+  },
+  {
+    "name": "WmCalendarGeneralOptions",
+    "description": "Calendar property page20004: native field order, IDs and value contracts.\nCaller owns persistence and immediate application. Native applies on commit;\nthis SDK reports each completed user change. Coordinates use the original\ntemplate and the observed7/14 DLU profile; narrow widths and oversized font\nmetrics expand rows. No CalendarProvider access occurs here."
+  },
+  {
+    "name": "WmCalendarHeader",
+    "description": "CALENDAR top ToolbarWindow32 roles from caldll. Source logical VGA height44,\ndate reservation140(CJK)/160(other), seven32px weekdays; text controls autosize.\nNavigation buttons36px, separator12px follow\nthe native192DPI model; horizontal gaps project native ARM; Android text extents remain adaptations.\nThe caller owns date selection and popup placement; no PIM access here."
+  },
+  {
+    "name": "WmCalendarPicker",
+    "description": "Shared non-platform month dropdown. Caller places and dismisses it.\nFont-derived client extent uses the native logical192DPI formula."
+  },
+  {
+    "name": "WmCalendarSymbols",
+    "description": "Original outres.192 BITMAP11029; native mask WORDs confirmed in caldll.\nRGB red is the native ImageList transparency key. The six32x28 source cells\nare the VGA atlas adaptation; native cell width is runtime SM_CXSMICON.\nThis component does not assert original-device GDI scaling or icon placement."
+  },
+  {
+    "name": "WmCalendarView",
+    "description": "Shared DAYVIEW/WEEKVIEW presentation. All coordinates are logical VGA pixels.\ncaldll 0290F1C4 supplies font measurements; 02903454 supplies the pinned week\nheader; 0290C5AC supplies density-first lanes. This is not a WinCE control ABI.\nThe app supplies clipped civil-day records, owns their tags and opens cards.\nNative week date-header selection (029041B8) occurs on DOWN; this shared\ncapacitive control commits on a completed same-column UP instead.\nNative GDI metrics, category colors, overflow and drag editing are partial."
+  },
+  {
+    "name": "WmCategoryNameForm",
+    "description": "PIMUTIL New Category client; observed WM6.1.4 VGA frame and divider.\nConstruct/change on the UI thread. Use localizeTree/restyleTree for the complete form;\nonWmRestyle alone updates heading/label fonts and heading color, not input styling.\nOwner retains its app title and supplies Done/Cancel, validation and persistence.\nExact GDI raster and Korean/OEM geometry are not established by the USA capture."
+  },
+  {
+    "name": "WmCategoryPicker",
+    "description": "PIM category checked-list draft. The owner supplies its catalog, New/OK/Cancel\ncommands and persistence. Android collation/row metrics replace native NLS/GDI."
+  },
+  {
+    "name": "WmChoice",
+    "description": "Closed single-selection field. Caller supplies labels and owns the popup.\nFrame2/gutter28/down-arrow geometry is provisional; native combo DLU/font\nconversion has not been verified. No platform Spinner, ripple or animation."
+  },
+  {
+    "name": "WmClockPanel",
+    "description": "Read-only clock bubble body in the launcher's VGA coordinate space.\nROM evidence: shell32/000214FC.c and shellres CLOCK_TOOLTIP.HTM / CLOCK_BATTERY.HTM;\naygshell/03855938.c -> 03867774.c -> 03867740.c and design/korean-font-preprocess.json.\nThe Korean title's requested weight 700 is preprocessed to 400. Body CSS has no bold.\nHost owns the 444px WmPopup, inside-tap consumption and 7000ms timeout.\nNo calendar query or permission delegation: caller supplies its own appointment text."
+  },
+  {
+    "name": "WmCloseGlyph",
+    "description": "Hand-authored outlines after visual inspection of shellres.192.dll 4610/4615.\nBoth resources have a 46x52 canvas. Their opaque bounds are OK (10,16)-(36,34)\nand X (14,16)-(32,34); keep that padding when sizing the title-bar icon.\nThe O's smooth ellipses replace 1bpp steps; exact GDI pixels are not claimed.\nGeometry is also recorded in design/icons/close-glyphs.svg. No font substitution."
+  },
+  {
+    "name": "WmColor",
+    "description": "Integer HSB conversion recovered from AYGSHELL 3851D44/3851F2C.\nARM 3851EAC..3851EFC is authoritative: hue arithmetic is not an 8-bit char."
+  },
+  {
+    "name": "WmCommandBar",
+    "description": "Native VGA commands [0,180), [300,480); the middle120px belongs to SIP.\nOrdinary commands activate on completed UP, menu commands on DOWN.\nThe reserved centre has no command action; inputMethods binds an editor owner."
+  },
+  {
+    "name": "WmCommandMenu",
+    "description": "Logical-window command popup. Root uses the native command-centre anchor.\nChild menus retain their parent and open beside its selected row, clamped to\nthe client area. Child placement/scroll metrics remain Android adaptations."
+  },
+  {
+    "name": "WmContactDetailsView",
+    "description": "Owner-ordered contact drafts. Formatting, subcards and persistence belong to the owner.\nText selection follows the theme; the insertion cursor remains platform-owned on min14."
+  },
+  {
+    "name": "WmContactSubcardView",
+    "description": "Literal Name/Address components; the owner supplies labels and assembles results."
+  },
+  {
+    "name": "WmContactSummaryView",
+    "description": "Captured Contacts Summary geometry, with owner-supplied display data.\nThe owner validates actions and performs calls/messages/opens. Native Notes is a\nread-only tab; its separate editing and commit contract belongs to the owner."
+  },
+  {
+    "name": "WmContactsView",
+    "description": "Captured native Contacts client with owner-supplied immutable rows.\nNative 54px rows and completed single-click opening are evidenced by the\nsynthetic emulator fixture. No provider, permission or inferred long press."
+  },
+  {
+    "name": "WmControls",
+    "description": "Shared logical-VGA controls; immediate GDI selection, no ripple or fade.\nCall factories and restyleTree on the UI thread. Restyling does not rebuild views."
+  },
+  {
+    "name": "WmDateField",
+    "description": "Nullable, date-only segmented field. The owner owns the dropdown and persistence.\nFlat face follows native Contacts; gutter28 and Android font raster remain adaptations.\nArithmetic is proleptic Gregorian; native historical cutover keyboard behavior is not reproduced."
+  },
+  {
+    "name": "WmDateTimeField",
+    "description": "Civil date/time composite for native start25055/end25056 roles. Caller owns\npopups, persistence and UI-thread callbacks. Width distribution and the4px\ngap adapt to available space; they are not measured native DLU geometry."
+  },
+  {
+    "name": "WmDevice",
+    "description": "Read-only system state; missing services/permissions degrade without prompts."
+  },
+  {
+    "name": "WmDialog",
+    "description": "Explicit embedded dialog owner. Native8EAF0 promotes the focused push button\nand restores the stored default when focus returns to a non-button control.\nEditors keep their own input; this is not a full IsDialogMessage replacement."
+  },
+  {
+    "name": "WmDocumentFolders",
+    "description": "DocList dialog13443: New/Rename/Delete plus flat folders. Owner owns every write.\nNew creates immediately in the owner, then editName starts native-style label editing.\nBack cancels only the label edit; it never undoes an already-created folder."
+  },
+  {
+    "name": "WmDocumentProperties",
+    "description": "DocList Rename/Move dialog13444 fields; owner supplies real destinations and\nmetadata, validates on explicit OK and owns persistence/Cancel. No I/O occurs.\nGeometry follows the live480-wide Rename/Move capture: heading48, columns\nx22/x138, shared44 input rows. Widths flex on smaller surfaces; this Android\nadaptation is not an assumed DLU-to-pixel conversion. Hidden native\nstatic1025 and SIPPREF are omitted. Restyling/localizing preserves the draft."
+  },
+  {
+    "name": "WmEditableChoice",
+    "description": "Editable candidate field; caller owns candidates, validation and popup.\nFrame2/gutter28 match WmChoice; automatic height follows the plain combo font formula.\nUse setValue for silent programmatic changes; direct editing reports deltas."
+  },
+  {
+    "name": "WmFontFile",
+    "description": "Private immutable TTF/OTF imports. Caller owns the input stream.\nOnly the launcher's canonical read-only font URI is accepted for resolution."
+  },
+  {
+    "name": "WmFonts",
+    "description": "WM font linking: original Tahoma first, selected local face for missing glyphs.\nAPI 14–28 need spans because CustomFallbackBuilder arrived in API 29."
+  },
+  {
+    "name": "WmIconCaption",
+    "description": "Icon-list label selection measured by Android Layout, not native GDI metrics.\nThe owner supplies icon feedback and selection policy; this view only paints\nthe visible Layout-line rectangle, not raster glyph outlines. All coordinates are local logical pixels."
+  },
+  {
+    "name": "WmIconPolicy",
+    "description": "Immutable per-activity adaptive-icon policy, shared by Programs and SDK Start menus.\nBlacklist excludes listed activities; whitelist includes only listed activities.\nAn existing boolean preference without a mode retains the previous all-app behavior."
+  },
+  {
+    "name": "WmIcons",
+    "description": "Authored status and Today icons. Draws paths at display scale."
+  },
+  {
+    "name": "WmInputDialog",
+    "description": "Full-client name-entry dialog; host hides its commands while this owns them.\nNative Media template114: existing title, white client, Done/Cancel footer.\nParent surface and decoder remain attached."
+  },
+  {
+    "name": "WmListSettingsPane",
+    "description": "Shared list plus right-side command column for Today and Start settings.\nControl relationships follow shellres14421; dimensions retain the current\nprovisional VGA adaptation. At480px the list is296px; extra width goes to\nthe list while commands retain their VGA size and right-edge alignment.\nThe owner supplies scrolling, selection, commands and persistence."
+  },
+  {
+    "name": "WmLogo",
+    "description": "Compatibility logo wrapper: optional pack artwork or a system emoji. No embedded logo paths."
+  },
+  {
+    "name": "WmLunarCalendar",
+    "description": "Korean lunar dates supplied by a resource pack; no built-in year table.\nLoad off the UI thread. The immutable result remains valid after a pack change.\nGregorian civil dates stay the Calendar provider and selection identities."
+  },
+  {
+    "name": "WmMediaLibraryView",
+    "description": "Native Media Library client: 46px header, 34px icon rows and text-only selection.\nOwner supplies hierarchy and indexing. Populated metadata pages remain subject\nto native raster comparison; no system-wide storage permission is implied."
+  },
+  {
+    "name": "WmMediaPlaylistView",
+    "description": "Now Playing list. Native empty-screen capture supplies the 46px header and\ntoolbar. The 34px rows reuse the shared small-icon list metric; populated\nnative row selection/raster and disabled-toolbar GDI remain unverified."
+  },
+  {
+    "name": "WmMediaPropertiesView",
+    "description": "Native Media property order/roles from wmploc1116..1132 and emulator capture.\nValues are literal provider metadata. Unknown codec/DRM/rating/play-count data\nis omitted; Android decoding information is not a Windows codec engine."
+  },
+  {
+    "name": "WmMediaQueue",
+    "description": "Ordered media sources; duplicates are valid. Reordering preserves the current\noccurrence. Shuffle walks a permutation rather than repeating random tracks.\nThe native shuffle/history algorithm has not been recovered. UI-thread owner."
+  },
+  {
+    "name": "WmMediaView",
+    "description": "Native portrait player geometry from the 192-DPI WPC skin. The owner supplies\nfile selection, library and shell commands. Android decoders determine supported formats.\nVendor bitmaps are optional resource-pack assets, never embedded in the SDK."
+  },
+  {
+    "name": "WmMenuItem",
+    "description": "Immutable command-menu entry. Children are copied at both API boundaries."
+  },
+  {
+    "name": "WmMessageBox",
+    "description": "GWES MessageBox adaptation: pack icon64; MB_OK keeps caption OK\nwithout bottom buttons, confirmation adds Yes/No. No outside dismissal. Native builder00045C7C uses\nDPI-scaled10px margins and a5/8-screen text cap. VGA geometry/font measurement\nhere is provisional; this is not the native GDI dialog backend."
+  },
+  {
+    "name": "WmMetrics",
+    "description": "v1 logical VGA units. Scale the entire surface once; never apply Android sp."
+  },
+  {
+    "name": "WmMonthCalendar",
+    "description": "Single-month picker body, distinct from caldll MONTHVIEW.\ncommctrl03287EAC: centered digits, retained selection, no cell grid,\ntitle-colored weekday labels, trailing gray text and rectangular today marker.\nAndroid metrics, footer wording and regional week arithmetic are adaptations."
+  },
+  {
+    "name": "WmMonthCalendarHeader",
+    "description": "SysMonthCal32 title, separate from Calendar's toolbar. Native 192-DPI button\nextents and font-cell title formula; Android font metrics are an adaptation.\nCommands use completed UP; native DOWN/repeat timer is deliberately not used."
+  },
+  {
+    "name": "WmMonthView",
+    "description": "Client-fitted MONTHVIEW, from caldll 0291AB78/0291959C/02919E2C.\nVGA logical pixels. Android font rasterization is not GDI pixel equivalence.\nNative flag decoration: low 12 bits / next 12 bits / bit 24 outline."
+  },
+  {
+    "name": "WmNotesView",
+    "description": "Notes list/text client in 480-wide SDK coordinates. Owner supplies data and persistence.\nPlain text only; owner supplies folder identities. RichInk drawing/recording is not implemented."
+  },
+  {
+    "name": "WmPaint",
+    "description": "Synthetic presentation costs; these are not measurements of original hardware."
+  },
+  {
+    "name": "WmPalette",
+    "description": "Semantic control colors. ROM COLOR_3DFACE (index15) is #c9e7e9.\nHue follows the shared theme policy while original face saturation/value stay."
+  },
+  {
+    "name": "WmPhoneKeypad",
+    "description": "WM phone keypad in logical VGA units. The owner handles dialing and permissions.\nCanvas skins approximate the captured WM614 buttons; font rasterization differs\nbetween Android and the original device. No inferred long-press actions."
+  },
+  {
+    "name": "WmPhoneView",
+    "description": "Captured WM614 phone client; the owner supplies telephony and contact data.\nNo provider query, permission prompt or outgoing call belongs to this view."
+  },
+  {
+    "name": "WmPointer",
+    "description": "Opt-in relative trackpad on a logical VGA surface. No accessibility service,\nglobal input injection or system permissions. It controls this surface only."
+  },
+  {
+    "name": "WmPopup",
+    "description": "SHBoxEx popup body; coordinates follow AYGSHELL03855938/038566D0.\nSupply plain content or a WmPaint wrapper, then attach to a modal overlay."
+  },
+  {
+    "name": "WmPropertySheet",
+    "description": "Caller-owned property pages with the shared bottom tab strip. Pages stay\nattached when hidden; this control owns no footer, scrolling or page state."
+  },
+  {
+    "name": "WmPwiDocument",
+    "description": "Immutable original PWI input, with text, scalar format and saved layout access for the recovered\ntext-only record family. Unsupported objects fail explicitly. This is not an\neditor or a general PWI writer: getOriginalBytes() returns the unchanged input.\nNative evidence: design/notes-pwi-stream-evidence.json and the text/edit/format native evidence files."
+  },
+  {
+    "name": "WmPwiLayout",
+    "description": "Recovered RichInk coordinate and line-placement arithmetic. Inputs are native\nlogical coordinates and explicit runtime metrics, never Android dp/sp. This\nkernel does not measure fonts, wrap text, reflow a dirty cache or draw a view.\nSee design/notes-pwi-{paragraph,coordinate,line-position}-native-evidence.json."
+  },
+  {
+    "name": "WmPwiTextLayout",
+    "description": "Text-only C8994/E2984 wrapping with owner-supplied font measurement. Coordinates\nare native logical units; this does not provide GDI-equivalent Android shaping.\nType3/7 objects and extended styles fail explicitly. See notes-pwi-wrap-native-evidence.json."
+  },
+  {
+    "name": "WmPwiView",
+    "description": "Read-only binary PWI text adaptation. Fresh native wrapping/coordinate kernels\nuse Android font measurements; this is not GDI, ink, editor or writer fidelity.\nThe owner supplies DPI, scale, native break profile and explicit persisted-font\nmapping. No device-density inference or silent document/font fallback occurs.\nSaved line caches are never used to lay out this view. Plain streams, bullets,\nhighlight, unknown underline variants and extended character formats are rejected."
+  },
+  {
+    "name": "WmRadioMenu",
+    "description": "Shared command/radio popup body. Row44/padding32,12/dot8 remain provisional VGA\nmetrics. The14px submenu mask/placement trace GWES BITMAP5 at192dpi\nwith default WidgSz=0; separator9px/1px rule remains an adaptation.\nSelection callbacks use entry indices."
+  },
+  {
+    "name": "WmRecurrenceChoice",
+    "description": "Native appointment recurrence combo: once, weekly, monthly, yearly, edit.\nNative sources: pimdlg027D50AC/027D8418/027D8578/027D86D0/027D87BC/027D9618.\nCaller owns popup placement and wizard lifetime; commits must call choose().\nNative closed-field case540999780 uses 027D8578; index4 loads resource4002,\nthe edit label. 027D8418 recognizes start-matching no-end presets, else index4.\nEnglish wording is authored; Korean labels are ROM-backed.\nGeometry is inherited from WmChoice and remains provisional DLU conversion."
+  },
+  {
+    "name": "WmRecurrenceEditor",
+    "description": "Provider-free native recurrence wizard (PIMDLG20020/20200..20202).\nNative pattern/order/presets are preserved; logical row and popup dimensions\nremain provisional. Caller owns timezone, RRULE compatibility and saving."
+  },
+  {
+    "name": "WmRecurrenceRule",
+    "description": "Immutable recurrence pattern and range, without provider or timezone policy.\nSerializes newly authored rules only; it does not parse existing RRULEs.\nTimed UNTIL is caller-converted basic UTC; all-day UNTIL is a basic date.\nYears0001..9999 are accepted. This RFC codec does not imply CalendarProvider\nexpansion support: API14 YEARLY BYSETPOS and non-Sunday weekly anchors differ.\nLeap seconds are rejected. Native input limits and UI ordering are not claimed."
+  },
+  {
+    "name": "WmReminder",
+    "description": "Relative appointment reminder; no provider or scheduling policy.\nNative input permits four digits, including zero. Unit changes preserve\nquantity, not total minutes. Initial minute values must round-trip exactly."
+  },
+  {
+    "name": "WmResourcePack",
+    "description": "Data-only version2 ZIPs with caller-defined resource IDs. Install off the UI thread; the caller owns input.\nAn immutable snapshot keeps its files while a new pack is activated.\nThis store does not decode artwork, execute files or include vendor assets."
+  },
+  {
+    "name": "WmResources",
+    "description": "Shared local pack resolver. Prepare/install on a worker before rendering.\nMissing assets use packaged defaults when available.\nIndependent WM applets can mirror the host's data-only snapshot on a worker."
+  },
+  {
+    "name": "WmScrollBar",
+    "description": "GWE registry metrics at 192 DPI: cxVScr=26, cyVScr=40, cyThMin=26.\nGWE AE0C8/ADE0C supplies flat frames, inverted arrows and three thumb grips;\nsee design/scrollbar-paint.md for source and GDI raster limits.\nInvisible finger margins and relative dragging deliberately\nadapt the stylus-sized control for capacitive touch without widening its paint."
+  },
+  {
+    "name": "WmScrollView",
+    "description": "Shared applet scrolling: classic paint, ordinary finger swipes, larger thumb hit area.\nGeometry is expressed in VGA pixels; {@link WmViewport} owns the only display scale."
+  },
+  {
+    "name": "WmSettingsView",
+    "description": "Caller-owned settings metadata and callbacks, with retained category pages.\nKeys must be globally unique across categories. No settings are read or written.\nGrid and caption origins model native192DPI metrics; Android caption raster remains provisional."
+  },
+  {
+    "name": "WmShell",
+    "description": "Optional launcher bridge. Appearance/menu queries are read-only; clock mode is a public cosmetic setter. Audio memory only\nremembers the actual system media level, never caller-provided preferences.\nNo owner, messages, tasks or PIM data.\nAndroid activities remain ordinary independent apps; WM activities opt in."
+  },
+  {
+    "name": "WmSipButton",
+    "description": "ROM icon505 and completed-UP/arrow-DOWN actions, adapted to Android IMEs.\nThe original shell can show SIP without an editor. Android requires a served\neditor: this control is visible only while its owner contains an eligible one.\nThe picker is Android-owned; ordinary apps cannot switch IMEs silently."
+  },
+  {
+    "name": "WmSpeedDialView",
+    "description": "Captured WM614 Speed Dial row layout. Host owns storage, editing and dialing."
+  },
+  {
+    "name": "WmStartBackground",
+    "description": "Shared ROM Start texture, repeated in logical VGA coordinates in every shell."
+  },
+  {
+    "name": "WmStartMenu",
+    "description": "Shared Start rows and folder navigation in logical VGA coordinates."
+  },
+  {
+    "name": "WmStatusPanel",
+    "description": "Shared live Android status body; WmPopup owns the SHBoxEx chrome.\nWide bubble/footer and volume controls follow the unscaled VGA captures."
+  },
+  {
+    "name": "WmStrings",
+    "description": "Exact authored/context keys. Never translate user/provider data or normalize keys.\nCatalogs belong to each AssetManager, so an app's overrides cannot leak to another."
+  },
+  {
+    "name": "WmTabDrawable",
+    "description": "Bottom property-sheet tab: selected face joins the white page, no top edge."
+  },
+  {
+    "name": "WmTabStrip",
+    "description": "Shared property-sheet tabs in logical VGA; native font/DLU metrics remain provisional."
+  },
+  {
+    "name": "WmTaskEditor",
+    "description": "Task card core from PIMDLG 20007/20044. Owner saves values and supplies shell commands.\nInactive rows follow the captured VGA PIM card; ordinary date coupling follows the recovered task owner.\nshortcut: recurrence and native category database services are not ported."
+  },
+  {
+    "name": "WmThreeStateCheck",
+    "description": "Stock BS_3STATE/BS_AUTO3STATE:0→1→2→0, original outlined mixed tick.\nSetters do not notify the state listener; automatic user toggles do.\nThe inherited boolean checked value is true only for CHECKED."
+  },
+  {
+    "name": "WmTimeFormat",
+    "description": "Minute captions shared by PIM editors and Calendar consumers."
+  },
+  {
+    "name": "WmTitleBar",
+    "description": "Shared logical-VGA title assembly. Data, actions and timers belong to its host.\nNative shell geometry: height52, logo42x36 at x4, caption insets14/4,\ntray gap4 and close width50. Narrow connection and borderless close retain\nWMDroid's device-reference policies; this is not a WinCE drawing backend."
+  },
+  {
+    "name": "WmToday",
+    "description": "Shared Today presentation for local modules and provider-backed rows.\nData, permissions and actions belong to the module's host, not this layout."
+  },
+  {
+    "name": "WmTouchFeedback",
+    "description": "Native handled-DOWN feedback, decoded asynchronously on the media stream."
+  },
+  {
+    "name": "WmTouchSoundOptions",
+    "description": "Supported Screen controls from shellres dialog14399; caller owns persistence.\nShared row metrics adapt the template; this is not the full Sounds CPL."
+  },
+  {
+    "name": "WmTrayClock",
+    "description": "shell32 203FC clock in VGA coordinates. The parent scales the complete title bar.\nHand tables preserve the ROM's integer arithmetic, including its negative-angle\nsine behavior; see design/tray-clock-hands.json. This view owns no timer or popup."
+  },
+  {
+    "name": "WmTraySlot",
+    "description": "Shared VGA tray hit target. Artwork stays32px; connection ink is packed.\nNative shell normal slots38, battery42, gap4; narrow connection is a user override."
+  },
+  {
+    "name": "WmVectorDrawable",
+    "description": "Bounded, data-only Canvas vectors for resource packs, including API14.\nNo SVG scripts, external URLs, embedded code or artwork constants.\nThe caller owns input; decode on a worker before attaching the Drawable."
+  },
+  {
+    "name": "WmViewport",
+    "description": "Shared Android surface for the ROM-based logical VGA coordinate contract.\nThe default logical width is480; smaller UI scales expand the logical width.\nUniform scaling fills the available physical width and height.\nThis is an Android adaptation, not a claim about native WinCE rendering."
+  },
+  {
+    "name": "WmVolumeFeedback",
+    "description": "VoiceBar 2655A20: Quietest at step1, SystemDefault at2..4, Loudest at5.\nDefault.wav is a ROM fallback: the SystemDefault runtime alias is not recovered.\nIndependent pools route previews to media/ring without changing global volumes."
+  },
+  {
+    "name": "WmWindow",
+    "description": "One window contract for hosted applets and independent WM-style Activities.\nNo inset between the 52px title, client area and 52px command bar.\nThe host supplies its title/tray and commands; this class owns their geometry."
+  },
+  {
+    "name": "WmWizard",
+    "description": "Retained-page wizard following PIMDLG dialog20020's cancel/back/next/finish\narrangement. Geometry projects the observed SDK emulator base units7/14 at\nlogical192DPI; custom fonts/OEM profiles remain adaptations.\nCallers own page validation and completion. No shell footer or provider work."
+  },
+  {
+    "name": "WmYearChooser",
+    "description": "Shared editor for Calendar command69 / dialog20037 / edit21212.\nThe native four-character and1900..2999 rules are preserved. This embedded\ncontrol's placement and inline error are adaptations; DLU pixels are unmapped."
+  },
+  {
+    "name": "WmYearView",
+    "description": "caldll YEARVIEW: 02916AA4 layout, 02915EEC atlas, 0291640C today,\n02915764 hit testing. Coordinates are native 192-DPI logical pixels.\nOriginal atlas glyphs are retained; Android title/bubble font metrics and\nSHGetMetric(12)'s unmeasured runtime border use explicit SDK adaptations."
+  }
+]
